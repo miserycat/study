@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+
+
+<mapper namespace="mybatis.dao.LockMapper">
+	<!--<resultMap id="lockResultMap" type="Lock">-->
+		<!--<id property="id" column="id" />-->
+		<!--<result property="name" column="lockName"></result>-->
+		<!--<association property="key" javaType="mybatis.entity.Key" >-->
+			<!--<id property="id" column="id" />-->
+			<!--<result property="name" column="keyName" />-->
+		<!--</association>-->
+	<!--</resultMap>-->
+	<!--<select id="getLock" resultType="Lock" parameterType="Integer" resultMap="lockResultMap">-->
+		<!--select * from tbl_key k join tbl_lock l on k.id = l.key_id and l.id = #{id}-->
+	<!--</select>-->
+	<resultMap id="lockResultMap" type="Lock">
+		<id property="id" column="id" />
+		<result property="name" column="lockName"></result>
+		<association property="key" column="key_id" select="mybatis.dao.KeyMapper.getKey">
+		</association>
+	</resultMap>
+	<select id="getLock" resultType="Lock" parameterType="Integer" resultMap="lockResultMap">
+		select * from tbl_lock where id = #{id}
+	</select>
+</mapper>
+	
+	
