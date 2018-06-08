@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.dao.StudentMapper">
+
+	<insert id="add" parameterType="Student" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO tbl_student(name,age)
+		VALUES(#{name},#{age})
+	</insert>
+
+	<select id="getStudentsByAge" resultType="Student" parameterType="Student" >
+		select * from tbl_student where age = #{age}
+	</select>
+
+
+	<select id="getStudentsByAgeIf" resultType="Student" parameterType="int" >
+		select * from tbl_student where 1 = 1
+		<if test="age>0">
+			AND age = #{age}
+		</if>
+	</select>
+
+	<select id="getStudentsWhere" resultType="Student" parameterType="Student" >
+		select * from tbl_student
+		<where>
+			<if test="age>0">
+				and age = #{age}
+			</if>
+			<if test="name != null and name !=''">
+				and name = #{name}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="getStudentsChoose" resultType="Student" parameterType="Student" >
+		select * from tbl_student
+		<choose>
+			<when test="age>0">
+				where age = #{age}
+			</when>
+			<when test="name != null and name != ''">
+				where name = #{name}
+			</when>
+			<otherwise>
+				where id > 0
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="getStudentsForEach" resultType="Student" parameterType="map" >
+		select * from tbl_student <!-- where age in (22,23,24) -->
+		<if test="ages != null">
+			<where>
+				age in
+				<foreach collection="ages" item="ages" open="(" separator="," close=")">
+					#{ages}
+				</foreach>
+			</where>
+		</if>
+	</select>
+
+	<select id="getStudentsTrim" resultType="Student" parameterType="map" >
+		select * from tbl_student
+		<trim prefix="WHERE" prefixOverrides="and|or">
+			<if test="age>0">
+				and age = #{age}
+			</if>
+		</trim>
+	</select>
+
+	<insert id="insertStudentsTrim" parameterType="Student" useGeneratedKeys="true" keyProperty="id">
+		insert into tbl_student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test=" name != null and name != '' ">
+				name,
+			</if>
+			<if test="age>0">
+				age,
+			</if>
+		</trim>
+		<trim prefix=" values(" suffix=")" suffixOverrides=",">
+			<if test=" name != null and name != '' ">
+				#{name},
+			</if>
+			<if test="age>0">
+				#{age},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="Student">
+		update tbl_student
+		<set>
+			<if test="age>0">
+				age = #{age},
+			</if>
+			<if test=" name != null and name != '' ">
+				name = #{name},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+</mapper>
+	
+	

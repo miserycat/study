@@ -10,7 +10,7 @@ public class HelloThread extends Thread{
 	boolean flag = true;
 	
 	public void run(){
-		while(flag){
+		while(!isInterrupted()){
 			System.out.println(i++);
 		}
 	}

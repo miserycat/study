@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.dao.CatMapper">
+
+	<insert id="add" parameterType="Cat" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO tbl_cat(name,color,birth)
+		VALUES(#{name},#{color},#{birth})
+	</insert>
+
+	<select id="getCatsByConditions" resultType="Cat" parameterType="Cat" >
+		select * from tbl_cat where name = #{name} and color = #{color}
+	</select>
+
+	<select id="getCatsLikedByName" resultType="Cat" parameterType="Cat" >
+		select * from tbl_cat where name like #{name}
+	</select>
+
+	<select id="getCatsLikedByNameDollar" resultType="Cat" parameterType="String" >
+		select * from tbl_cat where name like '%${name}%'
+	</select>
+
+	<select id="getCatsByMapsCondition" resultType="Cat" parameterType="map" >
+		select * from tbl_cat where name like #{name} or color = #{color}
+	</select>
+
+	<select id="getResultMap" resultType="map" parameterType="map" >
+		select * from tbl_cat where name like #{name} or color = #{color}
+	</select>
+
+</mapper>
+	
+	

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.dao.DogMapper">
+	
+	<resultMap id="DogResultMap"  type="Dog">
+		<id property="id" column="dog_id" />
+		<result property="name" column="dog_name"/>
+		<result property="age" column="dog_age"/>
+	</resultMap>
+	
+
+	<insert id="add" parameterType="Dog" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO tbl_dog(dog_name,dog_age)
+		VALUES(#{name},#{age})
+	</insert>
+
+	<select id="getDogsByConditions" resultType="Dog" parameterType="Dog" resultMap="DogResultMap">
+		select * from tbl_dog where dog_name = #{name} and dog_age = #{age}
+	</select>
+
+	<select id="getDogsLikedByName" resultType="Dog" parameterType="Dog" resultMap="DogResultMap">
+		select * from tbl_dog where dog_name like #{name}
+	</select>
+
+</mapper>
+	
+	

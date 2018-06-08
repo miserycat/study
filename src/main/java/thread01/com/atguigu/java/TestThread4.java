@@ -9,7 +9,7 @@ public class TestThread4 {
 		
 		for (int i = 0; i < 1000000; i++) {
 			if(i == 120000){
-				ht.setFlag();
+				ht.interrupt();
 				System.out.println("----------------------------------------");
 			}
 		}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.dao.PersonMapper">
+
+
+	<insert id="add" parameterType="Person" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO tbl_person(name,age,birth,registerTime,salary)
+		VALUES(#{name},#{age},#{birth},#{registerTime},#{salary})
+	</insert>
+
+	<delete id="delete" parameterType="Integer">
+		delete from tbl_person where id=#{id}
+	</delete>
+	<!-- -->
+	<!--<update id="update" parameterType="mybatis.entity.Person">-->
+		<!--update tbl_person set name=#{name},age=#{age},-->
+		<!--birth=#{birth},registerTime=#{registerTime},salary=#{salary}-->
+		<!--where id=#{id}-->
+	<!--</update>-->
+	<!-- -->
+	<select id="getPersonById" parameterType="Integer" resultType="Person">
+		select * from tbl_person where id=#{id}
+	</select>
+
+
+	<select id="getPersonByIdAndName" parameterType="Person"  resultType="Person">
+		select * from tbl_person where id=#{id} and name=#{name}
+	</select>
+	<!-- -->
+	<select id="getAllPerson" resultType="Person">
+		select * from tbl_person
+	</select>
+
+	<select id="update" parameterType="Person" >
+		update tbl_person set name = #{name}, age = #{age},
+		birth = #{birth}, registerTime = #{registerTime}, salary = #{salary}
+		where id = #{id}
+	</select>
+</mapper>
+	
+	

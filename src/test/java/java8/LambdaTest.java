@@ -97,6 +97,7 @@ public class LambdaTest {
         Long l2 = 102L;
         Long sum = multiple(l1, l2, (x, y) -> x * y);
         System.out.println(sum);
+
     }
 
 
@@ -105,6 +106,7 @@ public class LambdaTest {
 //        Comparator<Integer> comparator  = (x , y) -> Integer.compare(x, y);
         Comparator<Integer> comparator  = Integer::compare;
         Comparator<Customer> comparator1 = (c1, c2) -> c1.getAge() - c2.getAge();
+
     }
 
     @Test

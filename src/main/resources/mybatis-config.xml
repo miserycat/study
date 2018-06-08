@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<properties resource="db.properties"></properties>
+
+	<!-- 全局功能设置 -->
+	<settings>
+	   <setting name="lazyLoadingEnabled"       value="true"/>
+	   <setting name="aggressiveLazyLoading"    value="false"/>
+	   <setting name="cacheEnabled" 			value="true"/>
+	 </settings>
+
+	<typeAliases>
+		<!-- 单独为某个POJO设置别名
+		<typeAlias type="com.atguigu.mybatis.entities.Person" alias="Person"/> -->
+
+ 		<!--批处理别名，扫描整个包下的类 -->
+   		<package name="mybatis.entity"/>
+	</typeAliases>
+	
+	
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+		      <property name="driver"  			value="${jdbc.driverClass}" />
+		      <property name="url"   			value="${jdbc.jdbcUrl}" />
+		      <property name="username"   		value="${jdbc.user}" />
+		      <property name="password"   		value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<!-- XML配置版-->
+		<!--<mapper resource="mappings/PersonMapper.xml"/>-->
+		<!--&lt;!&ndash; Annotation配置版&ndash;&gt;-->
+		<!--<mapper class="mybatis.dao.PersonMapperAnnotation"/>-->
+
+ 		<!-- 注册mapper包下的所有mapper接口,此种方法要求mapper接口名称和mapper映射文件名称
+ 		遵守mabatis规范，且放在同一个目录中 -->
+   		<package name="mybatis.dao"/>
+		
+	</mappers>
+	
+</configuration>
