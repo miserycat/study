@@ -49,7 +49,7 @@ public class BuffDemo01 {
         System.out.println(buf.limit());
         System.out.println(buf.capacity());
 
-        //rewind
+        //rewind reset to read mode
         System.out.println("rewind: set position to 0 >>>>>>>>>>>>>>>>>>>>>>>");
         buf.rewind();
         //position:0 limit:5 capacity:1024
@@ -102,5 +102,31 @@ public class BuffDemo01 {
 
         System.out.println(buffer.isDirect());
 
+    }
+
+    @Test
+    public void test4() {
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        String str = "hello";
+        buffer.put(str.getBytes());
+
+        System.out.println(buffer.position());
+        System.out.println(buffer.limit());
+        System.out.println(buffer.capacity());
+
+        buffer.flip();
+
+        byte[] buf = new byte[buffer.limit()];
+        buffer.get(buf, 0, 2);
+        System.out.println(new String(buf, 0, 2));
+
+        buffer.get(buf, 2, 2);
+
+        buffer.mark();
+
+        System.out.println(new String(buf, 2, 2));
+
+        buffer.reset();
+        System.out.println(buffer.position());
     }
 }

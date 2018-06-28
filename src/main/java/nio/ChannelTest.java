@@ -3,17 +3,20 @@ package nio;
 import org.junit.Test;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.nio.IntBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Map;
@@ -32,14 +35,14 @@ public class ChannelTest {
         FileChannel outChannel = null;
 
         try {
-            fis = new FileInputStream("C:\\txts\\1.txt");
-            fos = new FileOutputStream("C:\\txts\\2.txt");
+            fis = new FileInputStream("C:\\txts\\add.png");
+            fos = new FileOutputStream("C:\\txts\\add2.png");
 
             ByteBuffer buf = ByteBuffer.allocate(1024);
             inChannel = fis.getChannel();
             outChannel = fos.getChannel();
 
-            while(inChannel.read(buf) != -1) {
+            while (inChannel.read(buf) != -1) {
                 buf.flip();
                 outChannel.write(buf);
                 buf.clear();
@@ -66,14 +69,12 @@ public class ChannelTest {
     public void test2() throws IOException {
         FileChannel inChannel = null;
         FileChannel outChannel = null;
-
         try {
-            inChannel = FileChannel.open(Paths.get("C:\\", "txts\\", "1.txt"), StandardOpenOption.READ);
-            outChannel = FileChannel.open(Paths.get("C:\\", "txts\\", "2.txt"), StandardOpenOption.READ, StandardOpenOption.WRITE, StandardOpenOption.CREATE);
-
+            inChannel = FileChannel.open(Paths.get("C:\\", "txts\\", "add.png"), StandardOpenOption.READ);
+            outChannel = FileChannel.open(Paths.get("C:\\", "txts\\", "add3.png"), StandardOpenOption.READ, StandardOpenOption.WRITE, StandardOpenOption.CREATE);
+            //ÄÚ´æÓ³ÉäÎÄ¼þ
             MappedByteBuffer mappedInChannel = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
             MappedByteBuffer mappedOutChannel = outChannel.map(FileChannel.MapMode.READ_WRITE, 0, inChannel.size());
-
             byte[] dst = new byte[mappedInChannel.limit()];
             mappedInChannel.get(dst);
             mappedOutChannel.put(dst);
@@ -91,7 +92,7 @@ public class ChannelTest {
 
 
     @Test
-    public void test3() throws IOException{
+    public void test3() throws IOException {
         FileChannel inChannel = null;
         FileChannel outChannel = null;
 
@@ -168,21 +169,46 @@ public class ChannelTest {
 
         ByteBuffer bBuffer = encoder.encode(cbuf);
 
-        for (int i = 0; i < 9; i++) {
-            System.out.print(bBuffer.getChar(i));
+        for (int i = 0; i < "hello world".length(); i++) {
+            System.out.println(bBuffer.get());
         }
-        System.out.println();
 
         bBuffer.flip();
         CharBuffer decode1 = decoder.decode(bBuffer);
         System.out.println(decode1.toString());
 
-        Charset gbk = Charset.forName("GBK");
-        bBuffer.flip();
-        CharBuffer decode2 = gbk.newDecoder().decode(bBuffer);
-        decode2.flip();
-        System.out.println(decode2.toString());
+//        Charset gbk = Charset.forName("GBK");
+//        bBuffer.flip();
+//        CharBuffer decode2 = gbk.newDecoder().decode(bBuffer);
+//        decode2.flip();
+//        System.out.println(decode2.toString());
 
 
+    }
+
+    @Test
+    public void test6() throws Exception {
+        RandomAccessFile randomAccessFile = new RandomAccessFile("C:/txts/1.txt", "rw");
+        FileChannel inChannel = randomAccessFile.getChannel();
+
+        ByteBuffer buf = ByteBuffer.allocate(48);
+        int byteRead = inChannel.read(buf);
+        while (byteRead != -1) {
+            System.out.println("Read" + byteRead);
+            buf.flip();
+
+            while (buf.hasRemaining()) {
+                System.out.println((char) buf.get());
+            }
+
+            buf.clear();
+
+            byteRead = inChannel.read(buf);
+            randomAccessFile.close();
+        }
+    }
+
+    @Test
+    public void test7() {
     }
 }
