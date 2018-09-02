@@ -1,4 +1,5 @@
-package designPattern.observer;// This interface handles adding, deleting and updating
+package designPattern.observer;
+// This interface handles adding, deleting and updating
 // all observers 
 
 public interface Subject {
