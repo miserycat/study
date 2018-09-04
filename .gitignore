@@ -1,0 +1,16 @@
+!.idea/
+.idea/*
+!.idea/codeStyleSettings.xml
+!.idea/codeStyles/
+**target/
+*.iml
+*.log
+*.txt
+*.zip
+.classpath
+.project
+.settings/
+.idea/
+src/com/
+src/test/java/java8/Demo.java
+target/

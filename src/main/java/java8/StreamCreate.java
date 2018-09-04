@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StreamCreate {
@@ -18,7 +19,10 @@ public class StreamCreate {
 //
 //    createRandomStream().forEach(System.out::println);
 
-    createInfiniteStream().forEach(System.out::println);
+//    createInfiniteStream().forEach(System.out::println);
+
+    IntStream.range(0, 10)
+            .forEach(index -> System.out.print(index));
   }
 
   private static Stream<String> createStreamByCollection() {
@@ -32,9 +36,9 @@ public class StreamCreate {
   }
 
   private static Stream<String> createStreamByPath() {
-    Path path  = Paths.get("D:\\study\\src\\main\\java\\java8\\ThreeFunction.java");
+    Path path  = Paths.get("C:\\study\\src\\main\\java\\java8\\ThreeFunction.java");
 
-    try (Stream<String> streamFromFile = Files.lines(path);) {
+    try (Stream<String> streamFromFile = Files.lines(path)) {
       streamFromFile.forEach(System.out::println);
       return streamFromFile;
     } catch (IOException e) {

@@ -1,4 +1,4 @@
-package reflection.myTest;
+package reflection.jdkDynamicProxy;
 
 import java.lang.reflect.Proxy;
 
