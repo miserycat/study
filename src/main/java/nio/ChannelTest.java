@@ -207,8 +207,4 @@ public class ChannelTest {
             randomAccessFile.close();
         }
     }
-
-    @Test
-    public void test7() {
-    }
 }

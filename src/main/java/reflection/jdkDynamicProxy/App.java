@@ -1,4 +1,4 @@
-package reflection.myTest;
+package reflection.jdkDynamicProxy;
 import org.junit.Test;
 /**
  * Created by shengchao wu on 4/25/2018.

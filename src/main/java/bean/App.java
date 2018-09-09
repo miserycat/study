@@ -5,7 +5,6 @@ package bean;
  */
 public class App {
     public static void main(String[] args) {
-        FuLocal zi1 = new Zi1();
-        zi1.methodFu();
+        Women women = new Women();
     }
 }
