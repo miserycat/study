@@ -1,7 +1,9 @@
 package baeldung.java8.dateapi;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,6 +13,24 @@ public class CompatibilityOldDateAndCalendar {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         Calendar calendar = Calendar.getInstance();
         localDateTime = LocalDateTime.ofInstant(calendar.toInstant(), ZoneId.systemDefault());
+
+        //convert utc date string to old Date
+        String originalUtcDateString = "2011-12-03T10:15:30Z";
+
+        Instant instant = Instant.parse(originalUtcDateString);
+        Date date2 = Date.from(instant);
+
+        String utcDateString = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+                .format(date2.toInstant().atZone(ZoneId.of("UTC")));
+
+        Date date3 = Date.from(Instant.parse(utcDateString));
+
+        String utcDateString2 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+                .format(date3.toInstant().atZone(ZoneId.of("UTC")));
+        System.out.println(utcDateString.equals(utcDateString2));
+
+
+
 
 
         /*
