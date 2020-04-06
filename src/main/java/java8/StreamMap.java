@@ -33,11 +33,11 @@ public class StreamMap {
 
 
     List<List<String>> list2 = Arrays.asList(
-        Arrays.asList("a"),
-        Arrays.asList("b"));
+        Arrays.asList("a,b,c"),
+        Arrays.asList("d,e,f"));
 
     List<String> result = Lists.newArrayList();
-    list2.forEach(result::addAll);
+//    list2.forEach(result::addAll);
 
     System.out.println(result);
 
@@ -52,7 +52,11 @@ public class StreamMap {
         .flatMap(nestedList -> nestedList.stream())
         .collect(Collectors.toList());
 
-    System.out.println(flatResult);
+   list2.stream()
+           .flatMap(Collection::stream)
+           .forEach(System.out::println);
+
+//    System.out.println(flatResult);
   }
 
 }

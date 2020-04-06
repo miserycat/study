@@ -9,11 +9,9 @@ import springAnnotation.dao.PersonDao;
  */
 @Service
 public class PersonService {
-
-    @Autowired
     private PersonDao personDao;
 
-
+    @Autowired
     public PersonDao getPersonDao() {
         return personDao;
     }
