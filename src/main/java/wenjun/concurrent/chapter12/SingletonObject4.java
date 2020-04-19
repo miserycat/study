@@ -4,17 +4,13 @@ package wenjun.concurrent.chapter12;
 public class SingletonObject4 {
     private static SingletonObject4 instance = null;
 
+    private static boolean objectInitFinished = false;
     private Object object;
 
     private SingletonObject4() {
-        //比如在初始化成员变量
-//        object = xxx.buildObject();
-
-        //jvm 不保证代码的执行顺序，只保证结果是正确的。
-        //i 和 j谁先被赋值顺序不确定
-        int i = 0;
-        int j = 10;
-
+        //下面2行代码不能保证顺序执行，只能保证最终一致性。
+        objectInitFinished = true; //
+        object = new Object(); //
 
     }
 
@@ -30,4 +26,14 @@ public class SingletonObject4 {
 
         return SingletonObject4.instance;
     }
+
+    public static boolean isObjectInitFinished() {
+        return objectInitFinished;
+    }
+    // other thread
+    // SingletonObject4 instance = SingletonObject4.getInstance();
+    // while (instance.isObjectFinished()) {
+    //      sleep(100);
+    // }
+    // instance.object.xxx(); 这个时候object由于代码重新排序了导致object是null
 }
