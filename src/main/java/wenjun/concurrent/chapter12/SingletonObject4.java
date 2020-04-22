@@ -6,11 +6,21 @@ public class SingletonObject4 {
 
     private static boolean objectInitFinished = false;
     private Object object;
+    private int i;
 
     private SingletonObject4() {
-        //下面2行代码不能保证顺序执行，只能保证最终一致性。
-        objectInitFinished = true; //
-        object = new Object(); //
+        /**
+         * new SingletonObject4的过程
+         * 1.在堆内存中开辟空间
+         * 2.初始化成员变量 object = null, i = 0
+         * 3.初始化成员变量，执行构造方法
+         * 4.将instance引用和堆中SingletonObject4建立连接（此时instance就不为null了）
+         *  由于jvm在代码之间没有依赖的情况下会重排序进行优化
+         *  有可能的顺序是 1 2 4 3, 在执行到4的时候另外的线程判断到intance不为null了，去访问里面的object 和 i并不是期望的值。
+         */
+        i = 10; //1
+        objectInitFinished = true; //2
+        object = new Object(); //3
 
     }
 
