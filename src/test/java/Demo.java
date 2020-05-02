@@ -61,6 +61,19 @@ public class Demo {
 
     @Test
     public void test3() {
+        //0001
+        //0010
+        //0011 3
+        int[] intArray = new int[]{1,1,1,1,1,1,1,2,1,1,1,1,1,1};
+        int n = intArray[0];
 
+        for (int i = 1; i < intArray.length; i++) {
+            int x = n ^ intArray[i];
+            if (x != 0) {
+                System.out.println(intArray[i]);
+                break;
+            }
+
+        }
     }
 }

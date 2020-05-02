@@ -15,7 +15,14 @@ public class UserService implements UserServiceLocal{
     public List<User> generateUserList() {
         Account account = new Account();
         account.setBalance(10000);
-        User user = new User(account);
+        User user = findUser(account);
         return Arrays.asList(user);
     }
+
+    @Override
+    public User findUser(Account account) {
+        return new User(account);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package Mock;
 
+import multiThreading.exer.Account;
 import multiThreading.exer.User;
 
 import java.util.List;
@@ -10,4 +11,7 @@ import java.util.List;
 public interface UserServiceLocal {
 
     List<User> generateUserList();
+
+    User findUser(Account account);
+
 }
