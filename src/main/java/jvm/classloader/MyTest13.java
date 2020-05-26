@@ -16,6 +16,8 @@ public class MyTest13 {
 
         String resourceName = "jvm/classloader/MyTest13.class";
 
+        //当一个类或者一个资源文件存在与多个jar中，就会存在jar hell问题。
+        //可以通过以下代码来诊断问题：
         Enumeration<URL> urls = classLoader.getResources(resourceName);
 
         while (urls.hasMoreElements()) {
