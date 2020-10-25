@@ -22,9 +22,8 @@ public class StreamMapTest {
 
     Stream<String> flatStream = stream.flatMap(Arrays::stream); // "H", "e", "l", "l", "o", "W", "0", "r", "l", "d"
 
-
-
   }
+
 
   private static List<Dish> listDish() {
     return Arrays.asList(
@@ -38,6 +37,5 @@ public class StreamMapTest {
         new Dish("prawns", false, 800, Type.FISH),
         new Dish("salmon", false, 800, Type.FISH));
   }
-
 
 }

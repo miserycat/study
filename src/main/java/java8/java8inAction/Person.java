@@ -4,6 +4,7 @@ import java.util.Optional;
 
 public class Person {
 
+  private int sortNum;
   private String name;
   private Car car;
 
@@ -31,5 +32,13 @@ public class Person {
 
   public void setCarOptional(Optional<Car> carOptional) {
     this.carOptional = carOptional;
+  }
+
+  public int getSortNum() {
+    return sortNum;
+  }
+
+  public void setSortNum(int sortNum) {
+    this.sortNum = sortNum;
   }
 }

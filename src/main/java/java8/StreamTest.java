@@ -2,6 +2,7 @@ package java8;
 
 import bean.Employee;
 import bean.Status;
+import mybatis.entity.Emp;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -129,14 +130,7 @@ public class StreamTest {
 
     @Test
     public void test6() {
-        List<Employee> list = Arrays.asList(
-                new Employee("Elizabeth", 28, 5000, Status.ONLINE),
-                new Employee("Darcy", 30, 100000, Status.ONLINE),
-                new Employee("Lydia", 15, 1000, Status.AWAY),
-                new Employee("Boss", 28, 1000, Status.DO_NOT_DISTURB),
-                new Employee("Manager", 28, 1000, Status.ON_MEETING),
-                new Employee("King", 50, 50000, Status.AWAY)
-        );
+        List<Employee> list =  initEmployees();
 
         Map<Status, List<Employee>> groupList = list.stream()
                 .collect(Collectors.groupingBy(Employee::getStatus));
@@ -153,22 +147,14 @@ public class StreamTest {
 
     @Test
     public void test7() {
-        List<Employee> list = Arrays.asList(
-                new Employee("Elizabeth", 28, 5000, Status.ONLINE),
-                new Employee("Darcy", 30, 100000, Status.ONLINE),
-                new Employee("Lydia", 15, 1000, Status.AWAY),
-                new Employee("Boss", 28, 1000, Status.DO_NOT_DISTURB),
-                new Employee("Manager", 28, 1000, Status.ON_MEETING),
-                new Employee("King", 50, 50000, Status.AWAY)
-        );
+        List<Employee> list = initEmployees();
 
         Map<Boolean, List<Employee>> collect = list.stream().collect(Collectors.partitioningBy(e -> e.getAge() > 25));
 
         System.out.println(collect);
     }
 
-    @Test
-    public void test8() {
+    private List<Employee> initEmployees() {
         List<Employee> list = Arrays.asList(
                 new Employee("Elizabeth", 28, 5000, Status.ONLINE),
                 new Employee("Darcy", 30, 100000, Status.ONLINE),
@@ -177,6 +163,12 @@ public class StreamTest {
                 new Employee("Manager", 28, 1000, Status.ON_MEETING),
                 new Employee("King", 50, 50000, Status.AWAY)
         );
+        return list;
+    }
+
+    @Test
+    public void test8() {
+        List<Employee> list = initEmployees();
 
         String collect = list.stream().map(Employee::getName)
                 .collect(Collectors.joining(",", "===", "==="));
